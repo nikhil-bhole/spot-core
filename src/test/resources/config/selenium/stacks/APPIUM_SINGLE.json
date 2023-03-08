@@ -1,0 +1,18 @@
+[
+		{
+      "deviceName": "Google Pixel 3",
+      "browserName": "Chrome",
+      "platformName": "Android",
+      "platformVersion": "9.0",
+      "udid": "127.0.0.1:4723",
+      "deviceOrientation": "portrait",
+      "skipUnlock": "true",
+      "noReset": "true",
+      "sessionOverride": "true",
+      "automationName": "uiautomator2",
+      "maxInstances": 1
+    }
+
+]
+
+

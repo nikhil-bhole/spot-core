@@ -1,2 +1,13 @@
 .jar
 .war
+.tar
+
+*.class
+*log
+
+.idea/*
+*imp
+/test-output/*
+target/*
+/.idea/
+.DS_Store

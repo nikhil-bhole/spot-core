@@ -28,7 +28,7 @@ import static library.selenium.core.Locator.getLocator;
  */
 public class Page {
     
-	protected Logger log = LogManager.getLogger(this.getClass().getName());
+    protected Logger log = LogManager.getLogger(this.getClass().getName());
     protected WebDriver driver;
     protected WebDriverWait wait;
     protected SoftAssert sa = null;
@@ -73,8 +73,6 @@ public class Page {
      */
     public Page waitPageToLoad() {
         domLoaded();
-        jqueryLoaded();
-        //angularLoaded();
         return this;
     }
 
@@ -95,51 +93,7 @@ public class Page {
         }
     }
 
-    /**
-     * Wait for JQuery to load
-     */
-    private void jqueryLoaded() {
-        log.debug("checking that any JQuery operations complete");
-        final JavascriptExecutor js = (JavascriptExecutor) getDriver();
-
-        if ((Boolean) js.executeScript("return typeof jQuery != 'undefined'")) {
-            boolean jqueryReady = (Boolean) js.executeScript("return jQuery.active==0");
-
-            if (!jqueryReady) {
-                getWait().until(new ExpectedCondition<Boolean>() {
-                    public Boolean apply(WebDriver d) {
-                        return (Boolean) js.executeScript("return window.jQuery.active === 0");
-                    }
-                });
-            }
-        }
-    }
-
-    /**
-     * Wait for AngularJs to load
-     */
-    public void angularLoaded() {
-        log.debug("checking that any AngularJS operations complete");
-        final JavascriptExecutor js = (JavascriptExecutor) getDriver();
-        if ((Boolean) js.executeScript("if (window.angular){return true;}")) {
-            Boolean angularInjectorUndefined = (Boolean) js.executeScript("return angular.element(document).find('body').injector() === undefined");
-
-            if (!angularInjectorUndefined) {
-                Boolean angularReady = (Boolean) js.executeScript("return angular.element(document).find('body').injector().get('$http').pendingRequests.length === 0");
-
-                if (!angularReady) {
-                    getWait().until(new ExpectedCondition<Boolean>() {
-                        public Boolean apply(WebDriver d) {
-                            return js.executeScript("return angular.element(document).find('body').injector().get('$http').pendingRequests.length === 0").equals(true);
-                        }
-                    });
-                }
-            } else {
-                log.debug("no AngularJS injector defined so cannot wait");
-            }
-        }
-    }
-
+    
 
     /*
      * Further methods for Page Objects when using Standard By Locators (non PageFactory)
